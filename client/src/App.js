@@ -16,9 +16,9 @@ class App extends React.Component {
 }
 
 const mapStatetoProps = (state) => {
-  return {num:state}
+  return {num:state.counter}
 }
 const actionCreators = {addNum, removeNum, addNumAsync}
-
 App = connect(mapStatetoProps, actionCreators) (App)
+
 export default App
