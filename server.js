@@ -1,25 +1,15 @@
 const express = require('express')
-const mongoose = require('mongoose')
-
-// connect MongoDB
-const DB_URL = 'mongodb://localhost:27017/seekAndHire'
-mongoose.connect(DB_URL)
-mongoose.connection.on('connected', () => console.log('Connected Successfully'))
-
-// model
-const User = mongoose.model('user', new mongoose.Schema({
-  user: {type: String, required: true},
-  age: {type: Number, required: true}
-
-}))
-
 const app = express()
-app.get('/', (req, res) => {
-  res.send('<h1>Sever</h1')
-})
-app.get('/data', (req, res) => {
-  User.find({}, (err, doc) => {
-    res.json(doc)
-  })
-})
+
+// Define middleware here
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+}
+
+const userRouter = require('./routes/user')
+app.use('/user', userRouter)
+
 app.listen(9093, () => console.log('Node app start at port 9093'))
