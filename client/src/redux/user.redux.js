@@ -5,8 +5,8 @@ const ERR_MSG = 'ERR_MSG'
 const initState = {
   isAuth: false,
   msg: '',
-  user: '',
-  pwd: '',
+  username: '',
+  password: '',
   type: ''
 }
 
@@ -14,7 +14,7 @@ const initState = {
 export function user(state=initState, action) {
   switch(action.type) {
     case REGISTER_SUCCESS:
-      return {...state, msg: '', isAuth: true, ...action.payload}
+      return {...state, msg:'Registered!', isAuth: true, ...action.payload}
     case ERR_MSG:
       return {...state, isAuth: false, msg: action.msg}
     default:
@@ -30,18 +30,18 @@ function errMsg(msg) {
   return {msg, type:ERR_MSG}
 }
 
-export function register({user, pwd, valid, type}) {
-  if (!user || !pwd || !type) {
+export function register({username, password, verification, type}) {
+  if (!username || !password || !type) {
     return errMsg('Username & Password are required')
   }
-  if (pwd !== valid) {
+  if (password !== verification) {
     return errMsg('Passwords are not the same')
   }
   return dispatch=> {
-    axios.post('/user/register', {user, pwd, type})
+    axios.post('/user/register', {username, password, type})
     .then(res => {
       if (res.status === 200 && res.data.code === 0) {
-        dispatch(registerSuccess(user, type))
+        dispatch(registerSuccess(username, type))
       } else {
         dispatch(errMsg(res.data.msg))
       }
