@@ -1,6 +1,9 @@
 import React from 'react'
 import { Button, InputItem, NavBar, TextareaItem, WhiteSpace } from 'antd-mobile'
 import AvatarSelector from '../components/AvatarSelector/AvatarSelector'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
+import { update } from '../redux/user.redux'
 
 class HirerInfo extends React.Component {
   constructor(props) {
@@ -18,8 +21,13 @@ class HirerInfo extends React.Component {
     })
   }
   render() {
+    const path = this.props.location.pathname
+    const redirect = this.props.redirectTo
     return(
       <div>
+        {redirect && redirect !== path 
+          ? <Redirect to={this.props.redirectTo}/> 
+          : null}
         <NavBar mode='dark'>HirerInfo Dashboard</NavBar>
         <AvatarSelector selectAvatar={(imgName) => {
           this.setState({
@@ -41,5 +49,9 @@ class HirerInfo extends React.Component {
     )
   }
 }
+
+const mapStatetoProps = (state) => state.user
+const actionCreators = {update}
+HirerInfo = connect(mapStatetoProps, actionCreators) (HirerInfo)
 
 export default HirerInfo
