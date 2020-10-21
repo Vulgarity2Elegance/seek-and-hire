@@ -2,10 +2,24 @@ const express = require('express')
 const Router = express.Router()
 const model = require('../models/model')
 const User = model.getModel('user')
+const _filter = {'password': 0, '__v': 0}
+
+// User.remove({}, (err, doc) => console.log(doc))
 
 Router.get('/list', (req, res) => {
   User.find({}, (err, doc) => {
     return res.json(doc)
+  })
+})
+
+Router.post('/login', (req, res) => {
+  const {username, password} = req.body
+  User.findOne({username, password}, _filter, (err, doc) => {
+    if (!doc) {
+      return res.json({code: 1, msg: 'Username & password are not valid'})
+    }
+    res.cookie('userId', doc._id)
+    return res.json({code: 0, data: doc})
   })
 })
 
@@ -15,19 +29,34 @@ Router.post('/register', (req, res) => {
   User.findOne({username: username}, (err, doc) => {
     if (doc) {
       return res.json({code: 1, msg: 'Username has been created'})
-    } else {
-      User.create({username, password, type}, (err, doc) => {
-        if (err) {
-          return res.json({code: 1, msg:'server error'})
-        } else {
-          return res.json({code: 0})
-        }
-      })
     }
+    const userModel = new User({username, type, password})
+    userModel.save((err, doc) => {
+      if (err) {
+        return res.json({code: 1, msg:'server error'})
+      }
+      const {username, type, _id} = doc
+      res.cookie('userId', _id)
+      return res.json({code: 0, data: {username, type, _id}})
+    })
+
   })
 })
 
 // To see whether the user has cookie or not
-Router.get('/info', (req, res) => {return res.json({code: 1})})
+Router.get('/info', (req, res) => {
+  const {userId} = req.cookies
+  if(!userId) {
+    return res.json({code: 1})
+  }
+  User.findOne({_id: userId}, _filter, (err, doc) => {
+    if (err) {
+      return res.json({code: 1, msg: 'server error'})
+    }
+    if (doc) {
+      return res.json({code:0, data: doc})
+    }
+  })
+})
 
 module.exports = Router
