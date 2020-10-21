@@ -1,8 +1,10 @@
 import axios from 'axios'
+import { getRedirectPath } from '../utils/util'
 
 const REGISTER_SUCCESS = 'REGISTER_SUCCESS'
 const ERR_MSG = 'ERR_MSG'
 const initState = {
+  redirectTo: '',
   isAuth: false,
   msg: '',
   username: '',
@@ -14,7 +16,7 @@ const initState = {
 export function user(state=initState, action) {
   switch(action.type) {
     case REGISTER_SUCCESS:
-      return {...state, msg:'Registered!', isAuth: true, ...action.payload}
+      return {...state, msg:'Registered!', redirectTo: getRedirectPath(action.payload), isAuth: true, ...action.payload}
     case ERR_MSG:
       return {...state, isAuth: false, msg: action.msg}
     default:
@@ -41,7 +43,7 @@ export function register({username, password, verification, type}) {
     axios.post('/user/register', {username, password, type})
     .then(res => {
       if (res.status === 200 && res.data.code === 0) {
-        dispatch(registerSuccess(username, type))
+        dispatch(registerSuccess({username, type}))
       } else {
         dispatch(errMsg(res.data.msg))
       }
