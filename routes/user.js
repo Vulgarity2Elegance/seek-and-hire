@@ -1,3 +1,4 @@
+const { json } = require('express')
 const express = require('express')
 const Router = express.Router()
 const model = require('../models/model')
@@ -9,6 +10,21 @@ const _filter = {'password': 0, '__v': 0}
 Router.get('/list', (req, res) => {
   User.find({}, (err, doc) => {
     return res.json(doc)
+  })
+})
+
+Router.post('/update', (req, res) => {
+  const userId = req.cookies.userId
+  if (!userId) {
+    return json.dumps({code: 1})
+  }
+  const body = req.body
+  User.findByIdAndUpdate(userId, body, (err, doc) => {
+    const data = Object.assign({}, {
+      username: doc.username,
+      type: doc.type
+    }, body)
+    return res.json({code: 0, data})
   })
 })
 
