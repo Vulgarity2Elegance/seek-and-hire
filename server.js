@@ -1,7 +1,9 @@
 const express = require('express')
+const cookieParser = require('cookie-parser')
 const app = express()
 
 // Define middleware here
+app.use(cookieParser())
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 // Serve up static assets (usually on heroku)
