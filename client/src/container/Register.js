@@ -2,6 +2,7 @@ import React from 'react'
 import Logo from '../components/Logo/Logo'
 import { Button, InputItem, List, Radio, WhiteSpace, WingBlank } from 'antd-mobile'
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import { register } from '../redux/user.redux'
 import '../index.css'
 
@@ -29,8 +30,8 @@ class Register extends React.Component {
     const RadioItem = Radio.RadioItem
     return (
       <div>
+        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
         <Logo />
-        <h1>Register</h1>
         <WingBlank>
           <List>
             {this.props.msg ? <p className='err-msg'>{this.props.msg}</p> : null}
@@ -48,12 +49,7 @@ class Register extends React.Component {
   }
 }
 
-const mapStatetoProps = (state) => {
-  return {
-    user: state.user,
-    msg: state.user.msg
-  }
-}
+const mapStatetoProps = (state) => state.user
 const actionCreators = {register}
 Register = connect(mapStatetoProps, actionCreators) (Register)
 
