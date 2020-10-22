@@ -7,7 +7,7 @@ class AvatarSelector extends React.Component {
     this.state = {}
   }
   render() {
-    const avatarList = 'mDev,fDev,mGrad,fGrad'
+    const avatarList = 'api,cmd,css3,github,html5,java,js,mac,php,python,react,windows'
       .split(',')
       .map(v => ({
         icon: require(`./img/${v}.png`),
