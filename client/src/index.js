@@ -13,6 +13,7 @@ import 'antd-mobile/dist/antd-mobile.css'
 import AuthRoute from './components/AuthRoute/AuthRoute'
 import HirerInfo from './container/HirerInfo'
 import SeekerInfo from './container/SeekerInfo'
+import Dashboard from './components/Dashboard/Dashboard'
 
 const store = createStore(reducers, compose(
   applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f=>f
@@ -28,6 +29,7 @@ ReactDom.render(
           <Route path='/hirerinfo' component={HirerInfo} />
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
+          <Route component={Dashboard} />
         </Switch>
       </div>
     </BrowserRouter>
