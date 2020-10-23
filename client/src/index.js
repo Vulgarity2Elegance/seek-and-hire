@@ -15,9 +15,13 @@ import HirerInfo from './container/HirerInfo'
 import SeekerInfo from './container/SeekerInfo'
 import Dashboard from './components/Dashboard'
 
-const store = createStore(reducers, compose(
-  applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f=>f
-) )
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(reducers, /* preloadedState, */ composeEnhancers(
+    applyMiddleware(thunk)
+  ));
+// const store = createStore(reducers, compose(
+//   applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f=>f
+// ) )
 
 ReactDom.render(
   (<Provider store={store}>
