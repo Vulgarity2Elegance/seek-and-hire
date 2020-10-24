@@ -8,11 +8,11 @@ import Seeker from './Seeker'
 import AboutMe from './AboutMe'
 
 function msg() {
-  return <h2>msg</h2>
+  return null
 }
 
 function share() {
-  return <h2>Share</h2>
+  return null
 }
 
 class Dashboard extends React.Component {
@@ -22,14 +22,12 @@ class Dashboard extends React.Component {
     const navList = [
       {
         path: '/msg',
-        text: 'msg',
         icon: 'msg',
         title: 'Hire me',
         component: msg,
       },
       {
         path: '/seeker',
-        text: 'Hirer',
         icon: 'job',
         title: 'Hirer List',
         component: Seeker,
@@ -37,7 +35,6 @@ class Dashboard extends React.Component {
       },
       {
         path: '/hirer',
-        text: 'seeker',
         icon: 'job',
         title: 'Seeker List',
         component: Hirer,
@@ -51,7 +48,6 @@ class Dashboard extends React.Component {
       },
       {
         path: '/me',
-        text: 'me',
         icon: 'user',
         title: 'About Me',
         component: AboutMe,
@@ -60,19 +56,17 @@ class Dashboard extends React.Component {
     return(
       <div>
         <NavBar className='fixed-header' mode='dark'>
-          {navList.find(v => v.path === pathname).title}
+          {navList.find(v => v.path === pathname) ? navList.find(v => v.path === pathname).title : null}
         </NavBar>
-        <div>
-          <Switch>
-            {navList.map(v => (
-              <Route 
-                key={v.path}
-                path={v.path}
-                component={v.component}
-              />
-            ))}
-          </Switch>
-        </div>
+        <Switch>
+          {navList.map(v => (
+            <Route 
+              key={v.path}
+              path={v.path}
+              component={v.component}
+            />
+          ))}
+        </Switch>
         <TabLinkBar data={navList} />
       </div>
     )
