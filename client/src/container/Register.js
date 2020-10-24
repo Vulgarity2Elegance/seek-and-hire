@@ -5,26 +5,18 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { register } from '../redux/user.redux'
 import '../index.css'
+import Form from '../components/Form'
 
 class Register extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      username: '',
-      password: '',
-      verification:'',
-      type: 'seeker'
-    }
     this.handleRegister = this.handleRegister.bind(this)
   }
-  handleChange(key, val) {
-    this.setState({
-      [key]: val
-    })
+  componentDidMount() {
+    this.props.handleChange('type', 'seeker')
   }
   handleRegister() {
-    this.props.register(this.state)
-    console.log(this.state)
+    this.props.register(this.props.state)
   }
   render() {
     const RadioItem = Radio.RadioItem
@@ -35,11 +27,11 @@ class Register extends React.Component {
         <WingBlank>
           <List>
             {this.props.msg ? <p className='err-msg'>{this.props.msg}</p> : null}
-            <InputItem onChange={v => this.handleChange('username', v)}>Username</InputItem>
-            <InputItem type='password' onChange={v => this.handleChange('password', v)}>Password</InputItem>
-            <InputItem type='password' onChange={v => this.handleChange('verification', v)}>Confirm</InputItem>
-            <RadioItem checked={this.state.type === 'seeker'} onChange={() => this.handleChange('type', 'seeker')}>Job Seeker</RadioItem>
-            <RadioItem checked={this.state.type === 'hirer'} onChange={() => this.handleChange('type', 'hirer')}>Job Hirer</RadioItem>
+            <InputItem onChange={v => this.props.handleChange('username', v)}>Username</InputItem>
+            <InputItem type='password' onChange={v => this.props.handleChange('password', v)}>Password</InputItem>
+            <InputItem type='password' onChange={v => this.props.handleChange('verification', v)}>Confirm</InputItem>
+            <RadioItem checked={this.props.state.type === 'seeker'} onChange={() => this.props.handleChange('type', 'seeker')}>Job Seeker</RadioItem>
+            <RadioItem checked={this.props.state.type === 'hirer'} onChange={() => this.props.handleChange('type', 'hirer')}>Job Hirer</RadioItem>
           </List>
           <WhiteSpace/>
           <Button type='primary' onClick={this.handleRegister}>Register</Button>
@@ -48,6 +40,8 @@ class Register extends React.Component {
     )
   }
 }
+
+Register = Form(Register)
 
 const mapStatetoProps = (state) => state.user
 const actionCreators = {register}

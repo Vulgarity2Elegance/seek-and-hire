@@ -4,39 +4,30 @@ import {List, InputItem, WhiteSpace, Button, WingBlank} from 'antd-mobile'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { login } from '../redux/user.redux'
+import Form from '../components/Form'
 
 class Login extends React.Component {
   constructor(props) {
     super(props)
-    this.state = {
-      username: '',
-      password: ''
-    }
     this.register = this.register.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
   }
-  handleChange(key, val) {
-    this.setState({
-      [key]: val
-    })
-  }
   handleLogin() {
-    this.props.login(this.state)
+    this.props.login(this.props.state)
   }
-  register(){
-    console.log(this.props)
+  register() {
     this.props.history.push('/register')
   }
   render() {
     return (
       <div>
-        {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
+        {(this.props.redirectTo && this.props.redirectTo !== '/login') ? <Redirect to={this.props.redirectTo}/> : null}
         <Logo/>
         <WingBlank>
           <List>
             {this.props.msg ? <p className='err-msg'>{this.props.msg}</p> : null}
-            <InputItem onChange={v => this.handleChange('username', v)}>Username</InputItem>
-            <InputItem type='password' onChange={v => this.handleChange('password', v)}>Password</InputItem>
+            <InputItem onChange={v => this.props.handleChange('username', v)}>Username</InputItem>
+            <InputItem type='password' onChange={v => this.props.handleChange('password', v)}>Password</InputItem>
           </List>
           <WhiteSpace/>
           <Button onClick={this.handleLogin} type='primary'>Login</Button>
@@ -47,6 +38,8 @@ class Login extends React.Component {
     )
   }
 }
+
+Login = Form(Login)
 
 const mapStatetoProps = (state) => state.user
 const actionCreators = {login}
