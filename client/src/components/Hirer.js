@@ -8,7 +8,6 @@ class Hirer extends React.Component {
     this.props.getUserList('seeker')
   }
   render() {
-    console.log(this.props.userList)
     return <UserCard userList = {this.props.userList} />
   }
 }
