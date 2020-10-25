@@ -1,5 +1,5 @@
 import React from 'react'
-import { InputItem, List, NavBar } from 'antd-mobile'
+import { Icon, InputItem, List, NavBar } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg, receiveMsg} from '../redux/message.redux'
 
@@ -9,8 +9,10 @@ class Chat extends React.Component {
     this.state = {text: '', msg: []}
   }
   componentDidMount() {
-    this.props.getMsgList()
-    this.props.receiveMsg()
+    if (!this.props.message.chatMsg.length) {
+      this.props.getMsgList()
+      this.props.receiveMsg()
+    }
   }
   handleSubmit() {
     const from = this.props.user._id
@@ -20,24 +22,45 @@ class Chat extends React.Component {
     this.setState({text: ''})
   }
   render() {
-    const user = this.props.match.params.user
+    const userid = this.props.match.params.user
     const Item = List.Item
+    const users = this.props.message.users
+    if (!users[userid]) {
+      return null
+    }
+
     return (
       <div id='chat-page'>
-        <NavBar mode='dark'>
-          {this.props.match.params.user}
+        <NavBar 
+          mode='dark'
+          icon={<Icon type='left'/>}
+          onLeftClick={() => {this.props.history.goBack()}}
+        >
+          {users[userid].name}
         </NavBar>
 
         {this.props.message.chatMsg.map(v => {
-          return v.from === user 
+          const avatar = require(`../components/AvatarSelector/img/${users[v.from].avatar}.png`)
+
+          return v.from === userid 
           ? (
-            <List key={v.id}>
-              <Item> {v.content} </Item>
+            <List key={v._id}>
+              <Item
+                key={v._id}
+                thumb={avatar}
+              > 
+                {v.content} 
+              </Item>
             </List>
           )
           : (
-            <List key={v.id}>
-              <Item className='chat-me'> {v.content} </Item>
+            <List key={v._id}>
+              <Item 
+                key={v._id}
+                extra={<img src={avatar} alt='avatar'/>}
+                className='chat-me'
+              > 
+                {v.content} </Item>
           </List>
           )
         })}
