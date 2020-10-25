@@ -14,11 +14,16 @@ Router.get('/list', (req, res) => {
 })
 
 Router.get('/getmsglist', (req, res) => {
-  const userId = req.cookies.userId
-  // {'$or': [{from: userId, to: userId}]}
-  Chat.find({}, (err, doc) => {
+  const user = req.cookies.userId
+  let users = {}
+  User.find({}, (e, userdoc) => {
+    userdoc.forEach(v => {
+      users[v._id] = {name: v.username, avatar: v.avatar}
+    })
+  })
+  Chat.find({'$or':[{from: user}, {to: user}]}, (err, doc) => {
     if (!err) {
-      return res.json({code: 0, msgs: doc})
+      return res.json({code: 0, msgs: doc, users: users})
     }
   })
 })
