@@ -14,14 +14,12 @@ import AuthRoute from './components/AuthRoute/AuthRoute'
 import HirerInfo from './container/HirerInfo'
 import SeekerInfo from './container/SeekerInfo'
 import Dashboard from './components/Dashboard'
+import Chat from './components/Chat'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducers, /* preloadedState, */ composeEnhancers(
     applyMiddleware(thunk)
   ));
-// const store = createStore(reducers, compose(
-//   applyMiddleware(thunk), window.devToolsExtension ? window.devToolsExtension() : f=>f
-// ) )
 
 ReactDom.render(
   (<Provider store={store}>
@@ -33,6 +31,7 @@ ReactDom.render(
           <Route path='/hirerinfo' component={HirerInfo} />
           <Route path='/login' component={Login} />
           <Route path='/register' component={Register} />
+          <Route path='/chat/:user' component={Chat} />
           <Route component={Dashboard} />
         </Switch>
       </div>
