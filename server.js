@@ -23,21 +23,19 @@ app.use('/user', userRouter)
 
 // Model
 const Chat = require('./models/Chat')
+// Chat.remove({}, (err, doc) => console.log(doc))
 
 // Use socket.io with express
 const server = require('http').Server(app)
 const io = require('socket.io')(server)
 
-io.on('connection', function(socket) {
-  console.log('user login')
+io.on('connection', socket => {
   socket.on('sendMsg', data => {
     const {from, to, msg} = data
     const chatId = [from, to].sort().join('_')
-    Chat.create({chatId, from, to, content:msg}, (err, doc) => {
+    Chat.create({chatId, from, to, content: msg}, (err, doc) => {
       io.emit('receiveMsg', Object.assign({}, doc._doc))
     })
-    // console.log(data)
-    // io.emit('receiveMsg', data)
   })
 })
 
