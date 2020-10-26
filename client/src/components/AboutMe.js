@@ -46,7 +46,7 @@ class AboutMe extends React.Component {
       </List>
       <WhiteSpace size='xl'/>
       <WingBlank>
-        <Button type='warning' size='large' onClick={this.logout()}>Logout</Button>
+        <Button type='warning' size='large' onClick={this.logout}>Logout</Button>
       </WingBlank>
     </div>) : <Redirect to={props.redirectTo} />
   }
