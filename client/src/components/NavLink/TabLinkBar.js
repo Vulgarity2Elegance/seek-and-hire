@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { TabBar } from 'antd-mobile'
 import { withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class TabLinkBar extends React.Component {
   static propTypes = {
@@ -14,6 +15,7 @@ class TabLinkBar extends React.Component {
       <TabBar>
         {navList.map(v => 
           (<TabBar.Item
+            badge={v.path === '/msg' ? this.props.unread : ''}
             key={v.path}
             title={v.title}
             icon={{uri: require(`./img/${v.icon}.png`)}}
@@ -26,5 +28,8 @@ class TabLinkBar extends React.Component {
     )
   }
 }
+
+const mapStatetoProps = (state) => state.message
+TabLinkBar = connect(mapStatetoProps) (TabLinkBar)
 
 export default withRouter(TabLinkBar)
