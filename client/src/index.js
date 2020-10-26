@@ -10,6 +10,7 @@ import Register from "./container/Register"
 import reducers from "./reducer"
 import "./config"
 import 'antd-mobile/dist/antd-mobile.css'
+import './index.css'
 import AuthRoute from './components/AuthRoute/AuthRoute'
 import HirerInfo from './container/HirerInfo'
 import SeekerInfo from './container/SeekerInfo'
