@@ -6,6 +6,7 @@ import TabLinkBar from './NavLink/TabLinkBar'
 import Hirer from './Hirer'
 import Seeker from './Seeker'
 import AboutMe from './AboutMe'
+import { getMsgList, receiveMsg} from '../redux/message.redux'
 
 function msg() {
   return null
@@ -16,6 +17,10 @@ function share() {
 }
 
 class Dashboard extends React.Component {
+  componentDidMount() {
+    this.props.getMsgList()
+    this.props.receiveMsg()
+  }
   render() {
     const {pathname} = this.props.location
     const type = this.props.type
@@ -74,6 +79,7 @@ class Dashboard extends React.Component {
 }
 
 const mapStatetoProps = (state) => state.user
-Dashboard = connect(mapStatetoProps) (Dashboard)
+const actionCreators = {getMsgList, receiveMsg}
+Dashboard = connect(mapStatetoProps, actionCreators) (Dashboard)
 
 export default Dashboard
