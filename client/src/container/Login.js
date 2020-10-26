@@ -1,6 +1,6 @@
 import React from 'react'
 import Logo from "../components/Logo/Logo"
-import {List, InputItem, WhiteSpace, Button, WingBlank} from 'antd-mobile'
+import {List, InputItem, WhiteSpace, Button, WingBlank, NoticeBar} from 'antd-mobile'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { login } from '../redux/user.redux'
@@ -25,7 +25,7 @@ class Login extends React.Component {
         <Logo/>
         <WingBlank>
           <List>
-            {this.props.msg ? <p className='err-msg'>{this.props.msg}</p> : null}
+          {this.props.msg ? <NoticeBar mode="closable" icon={null}> {this.props.msg} </NoticeBar> : null}
             <InputItem onChange={v => this.props.handleChange('username', v)}>Username</InputItem>
             <InputItem type='password' onChange={v => this.props.handleChange('password', v)}>Password</InputItem>
           </List>

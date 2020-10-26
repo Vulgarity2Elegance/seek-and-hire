@@ -1,6 +1,6 @@
 import React from 'react'
 import Logo from '../components/Logo/Logo'
-import { Button, InputItem, List, Radio, WhiteSpace, WingBlank } from 'antd-mobile'
+import { Button, InputItem, List, NoticeBar, Radio, WhiteSpace, WingBlank } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import { register } from '../redux/user.redux'
@@ -24,8 +24,8 @@ class Register extends React.Component {
         {this.props.redirectTo ? <Redirect to={this.props.redirectTo}/> : null}
         <Logo />
         <WingBlank>
-          <List>
-            {this.props.msg ? <p className='err-msg'>{this.props.msg}</p> : null}
+          <List> 
+            {this.props.msg ? <NoticeBar mode="closable" icon={null}> {this.props.msg} </NoticeBar> : null}
             <InputItem onChange={v => this.props.handleChange('username', v)}>Username</InputItem>
             <InputItem type='password' onChange={v => this.props.handleChange('password', v)}>Password</InputItem>
             <InputItem type='password' onChange={v => this.props.handleChange('verification', v)}>Confirm</InputItem>
