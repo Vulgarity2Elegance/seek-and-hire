@@ -28,6 +28,17 @@ Router.get('/getmsglist', (req, res) => {
   })
 })
 
+Router.post('/readmsg', (req, res) => {
+  const userid = req.cookies.userId
+  const {from} = req.body
+  Chat.update({from, to: userid}, {'$set': {read: true}}, {'multi': true}, (err, doc) => {
+    if (!err) {
+      console.log(doc)
+      return res.json({code: 0, num: doc.nModified})
+    }
+  })
+})
+
 Router.post('/update', (req, res) => {
   const userId = req.cookies.userId
   if (!userId) {
