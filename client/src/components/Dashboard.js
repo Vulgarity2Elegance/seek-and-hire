@@ -6,11 +6,8 @@ import TabLinkBar from './NavLink/TabLinkBar'
 import Hirer from './Hirer'
 import Seeker from './Seeker'
 import AboutMe from './AboutMe'
+import Message from './Message'
 import { getMsgList, receiveMsg} from '../redux/message.redux'
-
-function msg() {
-  return null
-}
 
 function share() {
   return null
@@ -29,7 +26,7 @@ class Dashboard extends React.Component {
         path: '/msg',
         icon: 'msg',
         title: 'Hire me',
-        component: msg,
+        component: Message
       },
       {
         path: '/seeker',
