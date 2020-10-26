@@ -15,12 +15,14 @@ function share() {
 
 class Dashboard extends React.Component {
   componentDidMount() {
-    this.props.getMsgList()
-    this.props.receiveMsg()
+    if (!this.props.message.chatMsg.length) {
+      this.props.getMsgList()
+      this.props.receiveMsg()
+    }
   }
   render() {
     const {pathname} = this.props.location
-    const type = this.props.type
+    const type = this.props.user.type
     const navList = [
       {
         path: '/msg',
@@ -75,7 +77,11 @@ class Dashboard extends React.Component {
   }
 }
 
-const mapStatetoProps = (state) => state.user
+const mapStatetoProps = (state) => {
+  const {user} = state
+  const {message} = state
+  return {user, message}
+}
 const actionCreators = {getMsgList, receiveMsg}
 Dashboard = connect(mapStatetoProps, actionCreators) (Dashboard)
 
