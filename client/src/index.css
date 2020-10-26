@@ -4,9 +4,10 @@
 }
 
 .am-tab-bar {
-  position: fixed;
+  height: 50px;
   bottom: 0;
   width: 100%;
+  position: absolute;
 }
 
 .fixed-header .am-navbar {
