@@ -50,7 +50,6 @@ class Chat extends React.Component {
           ? (
             <List key={v._id}>
               <Item
-                key={v._id}
                 thumb={avatar}
               > 
                 {v.content} 
@@ -60,7 +59,6 @@ class Chat extends React.Component {
           : (
             <List key={v._id}>
               <Item 
-                key={v._id}
                 extra={<img src={avatar} alt='avatar'/>}
                 className='chat-me'
               > 
