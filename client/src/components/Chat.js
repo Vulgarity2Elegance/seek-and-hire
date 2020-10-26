@@ -2,6 +2,7 @@ import React from 'react'
 import { Icon, InputItem, List, NavBar } from 'antd-mobile'
 import { connect } from 'react-redux'
 import { getMsgList, sendMsg, receiveMsg} from '../redux/message.redux'
+import { getChatId } from '../utils/util'
 
 class Chat extends React.Component {
   constructor(props){
@@ -28,6 +29,9 @@ class Chat extends React.Component {
     if (!users[userid]) {
       return null
     }
+    // Only show messages to users who have correspondence with each other.
+    const chatid = getChatId(userid, this.props.user._id)
+    const chatmsgs = this.props.message.chatMsg.filter(v => v.chatId === chatid)
 
     return (
       <div id='chat-page'>
@@ -39,7 +43,7 @@ class Chat extends React.Component {
           {users[userid].name}
         </NavBar>
 
-        {this.props.message.chatMsg.map(v => {
+        {chatmsgs.map(v => {
           const avatar = require(`../components/AvatarSelector/img/${users[v.from].avatar}.png`)
 
           return v.from === userid 
@@ -60,7 +64,8 @@ class Chat extends React.Component {
                 extra={<img src={avatar} alt='avatar'/>}
                 className='chat-me'
               > 
-                {v.content} </Item>
+                {v.content} 
+              </Item>
           </List>
           )
         })}
