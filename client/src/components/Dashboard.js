@@ -7,7 +7,7 @@ import Hirer from './Hirer'
 import Seeker from './Seeker'
 import AboutMe from './AboutMe'
 import Message from './Message'
-import { getMsgList, receiveMsg} from '../redux/message.redux'
+import { getMsgList, receiveMsg, readMsg} from '../redux/message.redux'
 
 function share() {
   return null
@@ -18,6 +18,8 @@ class Dashboard extends React.Component {
     if (!this.props.message.chatMsg.length) {
       this.props.getMsgList()
       this.props.receiveMsg()
+      const to = this.props.match.params.user
+      this.props.readMsg(to)
     }
   }
   render() {
@@ -77,12 +79,8 @@ class Dashboard extends React.Component {
   }
 }
 
-const mapStatetoProps = (state) => {
-  const {user} = state
-  const {message} = state
-  return {user, message}
-}
-const actionCreators = {getMsgList, receiveMsg}
+const mapStatetoProps = (state) => state
+const actionCreators = {getMsgList, receiveMsg, readMsg}
 Dashboard = connect(mapStatetoProps, actionCreators) (Dashboard)
 
 export default Dashboard
