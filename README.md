@@ -40,7 +40,6 @@ It consists of three components:
 - [Usage](#Usage)
 - [License](#License)
 - [Contributing](#Contributing)
-- [Tests](#Tests)
 - [Questions](#Questions)
 
 ## Usage
