@@ -26,6 +26,7 @@ class AboutMe extends React.Component {
     return props.username ? (
     <div>
       <Result
+      style={{backgroundColor: 'bisque'}}
       img={ <img src={require(`./AvatarSelector/img/${props.avatar}.png`)} alt='avatar'/> }
       title={props.username}
       /> 
