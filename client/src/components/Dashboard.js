@@ -8,10 +8,7 @@ import Seeker from './Seeker'
 import AboutMe from './AboutMe'
 import Message from './Message'
 import { getMsgList, receiveMsg, readMsg} from '../redux/message.redux'
-
-function share() {
-  return null
-}
+import Explore from './Explore'
 
 class Dashboard extends React.Component {
   componentDidMount() {
@@ -49,8 +46,8 @@ class Dashboard extends React.Component {
       {
         path: '/share',
         icon: 'share',
-        title: 'Share',
-        component: share,
+        title: 'Explore',
+        component: Explore,
       },
       {
         path: '/me',
