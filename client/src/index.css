@@ -1,3 +1,8 @@
+body {
+  background-color: cornsilk;
+  font-family: "Lato", sans-serif;
+}
+
 .am-tab-bar {
   height: 50px;
   bottom: 0;
