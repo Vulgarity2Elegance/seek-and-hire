@@ -50,6 +50,30 @@ I want  talk to one of professionals and more experienced job seeker in real tim
 So that I can improve my skills and get myself prepared for the upcoming technical interviews
 ```
 
+There are two types of users, one is job seeker and another one is job hirer. You need to choose avater and complete your account info if you want to be sucessfully registered.
+
+![Info](./assets/Info.png)
+
+After you successfully logged in or registered, this app will redirect you to this tab - either Hirer list or Seeker list, depending on which one you have selected.
+
+This is a place where you can see other users, click their info card then you can talk to each other.
+
+N.B: if you are a seeker, you will only see hirers in this tab, vice versa.
+
+![List](./assets/List.png)
+
+You can talk to each other in the real-time event.
+
+![Conversation](./assets/Conversation.gif)
+
+All chat messages can be found on the Hire me tab.
+
+![Message](./assets/Message.png)
+
+Go to About me Tab if you want to see your info and Logout.
+
+![Users](./assets/Users.png)
+
 ## License
 
 This project is licensed under the MIT.
