@@ -74,6 +74,10 @@ Go to About me Tab if you want to see your info and Logout.
 
 ![Users](./assets/Users.png)
 
+## Future Directions
+
+Given that the number of registered users might increase in the future, search functionality will be built. From either hirer list or seeker list tab where users can be searched by name.
+
 ## License
 
 This project is licensed under the MIT.
