@@ -76,7 +76,9 @@ Go to About me Tab if you want to see your info and Logout.
 
 ## Future Directions
 
-Given that the number of registered users might increase in the future, search functionality will be built. From either hirer list or seeker list tab where users can be searched by name.
+Given that the number of registered users might increase in the future, search functionality will be built. users can search by name of users From either hirer list or seeker list tab.
+
+Security issues also need to be addressed.
 
 ## License
 
