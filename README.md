@@ -80,6 +80,10 @@ Given that the number of registered users might increase in the future, search f
 
 Security issues also need to be addressed.
 
+The LinkedIn API will be integrated into this app to help especially the aspect of Training Courses that are aligned to skills set.
+
+This app will be deployed on Cloudflare Workers.
+
 ## License
 
 This project is licensed under the MIT.
