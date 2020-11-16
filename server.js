@@ -21,6 +21,9 @@ if (process.env.NODE_ENV === 'production') {
 const userRouter = require('./routes/user')
 app.use('/user', userRouter)
 
+const chatRouter = require('./routes/chat')
+app.use('/user', chatRouter)
+
 // Model
 const Chat = require('./models/Chat')
 // Chat.remove({}, (err, doc) => console.log(doc))
